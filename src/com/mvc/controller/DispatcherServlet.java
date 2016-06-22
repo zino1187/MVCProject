@@ -13,16 +13,24 @@ package com.mvc.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mvc.blood.controller.BloodController;
-import com.mvc.movie.controller.MovieController;
+import com.mvc.context.ApplicationContext;
 public class DispatcherServlet extends HttpServlet{
+	ApplicationContext applicationContext;
 	
-	
+	//서블릿의 인스턴스가 메모리에 생성될때 최초 1번 호출되는 초기화 메서드!! 
+	public void init(ServletConfig config){
+		ServletContext context=config.getServletContext();
+		String param=config.getInitParameter("contextConfigLocation");
+		String path=context.getRealPath(param);
+		applicationContext = new ApplicationContext(path);
+	}
 	
 	//클라이언트가 post 방식으로 요청을 시도하면 이 메서드가 작동한다.1!!
 	//주의, 이 메서드 호출은?  쓰레드 ---> service ---> doPost
@@ -47,17 +55,23 @@ public class DispatcherServlet extends HttpServlet{
 		String uri=req.getRequestURI();
 		System.out.println("클라이언트의 uri는 "+uri);
 		
-		Controller controller=null;
+		Controller controller=applicationContext.getController(uri);
 		RequestDispatcher dispatcher=null;
-		if(uri.equals("/movie/movie.do")){
-			controller = new MovieController();
-			dispatcher = req.getRequestDispatcher("/movie/result.jsp");
-		}else if(uri.equals("/blood/blood.do")){
-			controller = new BloodController();
-			dispatcher = req.getRequestDispatcher("/blood/result.jsp");		
-		}
+		
+		//조건문을 사용하지 말고, 외부의 설정파일을 읽어들여, 해당 요청을 처리할 
+		//동생 컨트롤러 클래스를 실제 메모리에 올려서 동작시키자!!
+
 		controller.execute(req, resp);
-		dispatcher.forward(req, resp);
+		
+		String key=controller.getResultView();	
+		String viewPage = applicationContext.getViewPage(key);
+		
+		if(controller.isForward()){
+			dispatcher = req.getRequestDispatcher(viewPage);
+			dispatcher.forward(req, resp);
+		}else{
+			resp.sendRedirect(viewPage);
+		}
 	}
 }
 

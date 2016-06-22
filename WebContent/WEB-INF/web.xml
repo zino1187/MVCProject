@@ -7,6 +7,10 @@
 	<servlet>
 		<servlet-name>mainServlet</servlet-name>
 		<servlet-class>com.mvc.controller.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>WEB-INF/my-context.txt</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>mainServlet</servlet-name>

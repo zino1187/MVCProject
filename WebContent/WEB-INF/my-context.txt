@@ -1,0 +1,10 @@
+#앞으로 사용할 모든 클래스 정보를 갖고 있을 파일
+/movie/movie.do=com.mvc.movie.controller.MovieController
+/blood/blood.do=com.mvc.blood.controller.BloodController
+/board/list.do=com.mvc.board.controller.ListController
+
+
+#어떤 뷰를 보여줄지에 대한 매핑 정보 
+/movie/view=/movie/result.jsp
+/blood/view=/blood/result.jsp
+/board/list/view=/board/list.jsp

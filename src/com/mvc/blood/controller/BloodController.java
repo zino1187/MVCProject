@@ -21,6 +21,15 @@ public class BloodController implements Controller{
 		//4단계
 		request.setAttribute("msg", msg); //요청 scope 수준으로 저장!!
 	}
+	@Override
+	public String getResultView() {
+		return "/blood/view";
+	}
+	
+	@Override
+	public boolean isForward() {
+		return true; //요청 유지!!
+	}
 }
 
 
