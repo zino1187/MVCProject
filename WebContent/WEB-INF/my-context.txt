@@ -2,9 +2,27 @@
 /movie/movie.do=com.mvc.movie.controller.MovieController
 /blood/blood.do=com.mvc.blood.controller.BloodController
 /board/list.do=com.mvc.board.controller.ListController
+/board/write.do=com.mvc.board.controller.WriteController
+/board/detail.do=com.mvc.board.controller.DetailController
+/board/edit.do=com.mvc.board.controller.EditController
+/board/delete.do=com.mvc.board.controller.DeleteController
 
 
 #어떤 뷰를 보여줄지에 대한 매핑 정보 
 /movie/view=/movie/result.jsp
 /blood/view=/blood/result.jsp
 /board/list/view=/board/list.jsp
+/board/write/view=/board/list.do
+/board/detail/view=/board/detail.jsp
+/board/edit/view=/board/detail.jsp
+/board/delete/view=/board/list.do
+
+
+
+
+
+
+
+
+
+

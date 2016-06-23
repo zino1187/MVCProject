@@ -31,6 +31,18 @@ public class BoardDAOMybatis {
 		Board board=session.selectOne("Board.select", board_id);
 		return board;
 	}
+	//한건 수정 
+	public void update(Board board){
+		SqlSession session = mybatisConfig.getSession();
+		session.update("Board.update", board);		
+		session.commit();
+	}
+	
+	public void delete(int board_id){
+		SqlSession session = mybatisConfig.getSession();
+		session.delete("Board.delete", board_id);		
+		session.commit();
+	}
 	
 }
 

@@ -1,8 +1,15 @@
+<%@page import="com.mvc.board.model.Board"%>
+<%@page import="com.mvc.board.common.PageBean"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=utf-8"%>
+<%!
+	PageBean pb = new PageBean();
+%>
 <%
-	List list=(List)request.getAttribute("list");
+	List<Board> list=(List)request.getAttribute("list");
 	out.print("게시물 갯수는 "+list.size());
+	
+	pb.init(list.size(), request);
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -51,66 +58,24 @@ img{border:0px}
 	<tr>	
 		<td colspan="5" id="list">
 		  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+		  <%
+		  	int num=pb.getNum();
+		  	int curPos=pb.getCurPos();
+		  %>
+		    <%for(int i=1;i<=pb.getPageSize();i++){ %>
+		    <%if(num<1)break; %>
+		    <%Board board=list.get(curPos++); %>
 		    <tr align="center" height="20px" onMouseOver="this.style.background='#FFFF99'" onMouseOut="this.style.background=''">
-			  <td width="50">1</td>
-			  <td width="303"><a href="detail.jsp">제목입니다.</a></td>
-			  <td width="100">관리자</td>
-			  <td width="100">2008/02/10</td>
-			  <td width="50">5</td>
+			  <td width="50"><%=num-- %></td>
+			  <td width="303"><a href="/board/detail.do?board_id=<%=board.getBoard_id()%>"><%=board.getTitle() %></a></td>
+			  <td width="100"><%=board.getWriter() %></td>
+			  <td width="100"><%=board.getRegdate().substring(0,10)%></td>
+			  <td width="50"><%=board.getHit() %></td>
 		    </tr>
 			<tr>
 				<td height="1" colspan="5" background="/board/images/line_dot.gif"></td>
 			</tr>
-		    <tr align="center" height="20px" onMouseOver="this.style.background='#FFFF99'" onMouseOut="this.style.background=''">
-			  <td width="50">1</td>
-			  <td width="303">제목입니다.</td>
-			  <td width="100">관리자</td>
-			  <td width="100">2008/02/10</td>
-			  <td width="50">5</td>
-		    </tr>
-			<tr>
-				<td height="1" colspan="5" background="/board/images/line_dot.gif"></td>
-			</tr>
-		    <tr align="center" height="20px" onMouseOver="this.style.background='#FFFF99'" onMouseOut="this.style.background=''">
-			  <td width="50">1</td>
-			  <td width="303">제목입니다.</td>
-			  <td width="100">관리자</td>
-			  <td width="100">2008/02/10</td>
-			  <td width="50">5</td>
-		    </tr>
-			<tr>
-				<td height="1" colspan="5" background="/board/images/line_dot.gif"></td>
-			</tr>
-		    <tr align="center" height="20px" onMouseOver="this.style.background='#FFFF99'" onMouseOut="this.style.background=''">
-			  <td width="50">1</td>
-			  <td width="303">제목입니다.</td>
-			  <td width="100">관리자</td>
-			  <td width="100">2008/02/10</td>
-			  <td width="50">5</td>
-		    </tr>
-			<tr>
-				<td height="1" colspan="5" background="/board/images/line_dot.gif"></td>
-			</tr>
-		    <tr align="center" height="20px" onMouseOver="this.style.background='#FFFF99'" onMouseOut="this.style.background=''">
-			  <td width="50">1</td>
-			  <td width="303">제목입니다.</td>
-			  <td width="100">관리자</td>
-			  <td width="100">2008/02/10</td>
-			  <td width="50">5</td>
-		    </tr>
-			<tr>
-				<td height="1" colspan="5" background="/board/images/line_dot.gif"></td>
-			</tr>
-		    <tr align="center" height="20px" onMouseOver="this.style.background='#FFFF99'" onMouseOut="this.style.background=''">
-			  <td width="50">1</td>
-			  <td width="303">제목입니다.</td>
-			  <td width="100">관리자</td>
-			  <td width="100">2008/02/10</td>
-			  <td width="50">5</td>
-		    </tr>
-			<tr>
-				<td height="1" colspan="5" background="/board/images/line_dot.gif"></td>
-			</tr>
+			<%} %>
 		  </table>		</td>
 	</tr>
   <tr>

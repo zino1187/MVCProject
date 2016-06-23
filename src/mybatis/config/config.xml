@@ -5,7 +5,7 @@
 <configuration>
 	<!-- 앞으로 사용할 dto 객체의 풀 경로는 너무 기니깐, 단축된 이름을 부여하자 -->
 	<typeAliases>
-		<typeAlias type="com.study.board.model.Board" alias="Board"/>
+		<typeAlias type="com.mvc.board.model.Board" alias="Board"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
